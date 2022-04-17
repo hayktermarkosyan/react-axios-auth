@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from "react-router-dom";
-import { Form, Alert, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 
 import useUserAuth from '../context/UserAuthContextProvider';
 
@@ -8,11 +8,9 @@ const Login = () => {
   const { logIn } = useUserAuth();
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
-  const [error, setError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError("");
     logIn({ 
       "email": email,
       "password": pwd
@@ -23,7 +21,6 @@ const Login = () => {
     <>
       <div className="p-4">
         <h2 className="mb-3 text-center">Login</h2>
-        {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control

@@ -1,6 +1,6 @@
-import { createContext, useState, useContext, useEffect } from "react";
-import axios from "../api/axios";
+import { createContext, useState, useContext } from "react";
 import { useNavigate } from "react-router";
+import * as users from '../api/user';
 
 const UserAuthContext = createContext();
 
@@ -9,57 +9,30 @@ export const UserAuthContextProvider = ({ children }) => {
     const navigate = useNavigate();
 
     async function logIn(data) {
-        setUser(data);
-        await axios.post('login', data).then(
-            res => {
-                console.log(user);
-                localStorage.setItem('token', res.data.accessToken);
+        users.logIn(data).then(
+            () => {
+                setUser(data);
                 navigate("/home");
             }
-        ).catch(
-            err => {
-              console.log(err.message);
-            }
-        )
-    }
+        );
+    };
 
     async function signUp(data) {
-        await axios.post('register', data).then(
-            res => {
-              console.log(res);
-              navigate("/");
+        users.signUp(data).then(
+            () => {
+                navigate("/");
             }
-        ).catch(
-            err => {
-              console.log(err.message);
-            }
-        )
-    }
+        );
+    };
 
     async function logOut() {
-        await axios.post('logout').then(
-            res => {
-              localStorage.clear();
-              res.headers = {
-                "Authorization": null
-              }
-              navigate("/");
+        users.logOut().then(
+            () => {
+                setUser(null);
+                navigate("/");
             }
-        )
-        .catch(
-            err => {
-                console.log(err)
-            }
-        )
-    }
-
-    useEffect(() => {        
-        
-        return () => {
-          setUser();
-          console.log(user);
-        };
-    }, []);
+        );
+    };
 
     return (
         <UserAuthContext.Provider value={{ user, logIn, signUp, logOut }}>
