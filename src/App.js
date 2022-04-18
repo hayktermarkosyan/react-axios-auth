@@ -9,6 +9,7 @@ import useUserAuth from "./context/UserAuthContextProvider";
 
 function App() {
   const { user } = useUserAuth();
+  console.log(user)
 
   return (
     <Container style={{ width: "400px" }}>
@@ -27,12 +28,12 @@ function App() {
               <Route 
                 exact 
                 path="/" 
-                element={<Login />}
+                element={user ? <Navigate to="/home" /> : <Login />}
               />
               <Route 
                 exact
                 path="/signup" 
-                element={<Signup />} 
+                element={user ? <Navigate to="/home" /> : <Signup />} 
               />
             </Routes>
         </Col>

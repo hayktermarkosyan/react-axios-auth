@@ -11,8 +11,8 @@ export const UserAuthContextProvider = ({ children }) => {
     async function logIn(data) {
         users.logIn(data).then(
             () => {
-                setUser(data);
                 navigate("/home");
+                setUser(data);
             }
         );
     };
@@ -28,10 +28,13 @@ export const UserAuthContextProvider = ({ children }) => {
     async function logOut() {
         users.logOut().then(
             () => {
-                setUser(null);
                 navigate("/");
+                setUser(null);
             }
         );
+
+       
+        
     };
 
     return (
