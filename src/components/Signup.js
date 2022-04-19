@@ -31,7 +31,7 @@ const Signup = () => {
     <>
       <div className="p-4">
         <h2 className="mb-3 text-center">Signup</h2>
-        {error && <Alert variant="danger">{error.message}</Alert>}
+        {error && <Alert variant="danger">The given data was invalid.</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Control

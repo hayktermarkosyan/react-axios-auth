@@ -21,7 +21,14 @@ const Login = () => {
     <>
       <div className="p-4">
         <h2 className="mb-3 text-center">Login</h2>
-        {error && <Alert variant="danger">{error.message}</Alert>}
+        {error && 
+          <Alert variant="danger">{
+              error === "Request failed with status code 422" ?
+                "The email&password fields are required." :
+                "These credentials do not match our records."
+            }
+          </Alert>
+        }
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control

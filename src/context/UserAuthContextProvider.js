@@ -15,12 +15,12 @@ export const UserAuthContextProvider = ({ children }) => {
                 setUser(data);
                 navigate("/home");
             }
-        ).catch(err => setError(err));
+        ).catch(err => setError(err.message));
     };
 
     async function signUp(data) {
         users.signUp(data).then(() => navigate("/"))
-            .catch(err => setError(err));
+            .catch(err => setError(err.message));
     };
 
     async function logOut() {
@@ -29,7 +29,7 @@ export const UserAuthContextProvider = ({ children }) => {
                 navigate("/");
                 setUser(null);
             }
-        ).catch(err => alert(err));   
+        ).catch(err => console.log(err));   
     };
 
     return (
