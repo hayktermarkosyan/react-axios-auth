@@ -9,7 +9,6 @@ import useUserAuth from "./context/UserAuthContextProvider";
 
 function App() {
   const { user } = useUserAuth();
-  console.log(user)
 
   return (
     <Container style={{ width: "400px" }}>

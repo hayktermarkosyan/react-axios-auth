@@ -5,10 +5,10 @@ import useUserAuth from "../context/UserAuthContextProvider";
 const ProtectedRoute = ({ children }) => {
   const { user } = useUserAuth();
 
-  if (!user) {
-    return <Navigate to="/" />;
+  if (user && localStorage.getItem("token")) {
+    return children;
   }
-  return children;
+  return <Navigate to="/" />;
 };
 
 export default ProtectedRoute;

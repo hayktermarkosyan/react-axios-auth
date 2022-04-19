@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import useUserAuth from "../context/UserAuthContextProvider";
 
 const Signup = () => {
-  const { signUp } = useUserAuth();
+  const { error, signUp } = useUserAuth();
 
   const [name, setName] = useState();
   const [email, setEmail] = useState("");
@@ -13,7 +13,6 @@ const Signup = () => {
   const [educStart, setEducStart] = useState();
   const [educEnd, setEducEnd] = useState();
   const [terms, setTerms] = useState();
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,6 +31,7 @@ const Signup = () => {
     <>
       <div className="p-4">
         <h2 className="mb-3 text-center">Signup</h2>
+        {error && <Alert variant="danger">{error.message}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Control
