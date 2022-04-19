@@ -6,7 +6,8 @@ const UserAuthContext = createContext();
 
 export const UserAuthContextProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [error, setError] = useState();
+    const [loginErr, setLoginErr] = useState();
+    const [signupErr, setSignupErr] = useState();
     const navigate = useNavigate();
 
     async function logIn(data) {
@@ -15,12 +16,12 @@ export const UserAuthContextProvider = ({ children }) => {
                 setUser(data);
                 navigate("/home");
             }
-        ).catch(err => setError(err.message));
+        ).catch(err => setLoginErr(err.message));
     };
 
     async function signUp(data) {
         users.signUp(data).then(() => navigate("/"))
-            .catch(err => setError(err.message));
+            .catch(err => setSignupErr(err.message));
     };
 
     async function logOut() {
@@ -33,7 +34,7 @@ export const UserAuthContextProvider = ({ children }) => {
     };
 
     return (
-        <UserAuthContext.Provider value={{ user, error, logIn, signUp, logOut }}>
+        <UserAuthContext.Provider value={{ user, loginErr, signupErr, logIn, signUp, logOut }}>
             {children}
         </UserAuthContext.Provider>
     )

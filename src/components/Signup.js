@@ -4,7 +4,7 @@ import { Form, Button, Alert } from "react-bootstrap";
 import useUserAuth from "../context/UserAuthContextProvider";
 
 const Signup = () => {
-  const { error, signUp } = useUserAuth();
+  const { signupErr, signUp } = useUserAuth();
 
   const [name, setName] = useState();
   const [email, setEmail] = useState("");
@@ -31,7 +31,7 @@ const Signup = () => {
     <>
       <div className="p-4">
         <h2 className="mb-3 text-center">Signup</h2>
-        {error && <Alert variant="danger">The given data was invalid.</Alert>}
+        {signupErr && <Alert variant="danger">The given data was invalid.</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Control

@@ -5,7 +5,7 @@ import { Form, Button, Alert } from "react-bootstrap";
 import useUserAuth from '../context/UserAuthContextProvider';
 
 const Login = () => {
-  const { error, logIn } = useUserAuth();
+  const { loginErr, logIn } = useUserAuth();
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
 
@@ -21,9 +21,9 @@ const Login = () => {
     <>
       <div className="p-4">
         <h2 className="mb-3 text-center">Login</h2>
-        {error && 
+        {loginErr && 
           <Alert variant="danger">{
-              error === "Request failed with status code 422" ?
+              loginErr === "Request failed with status code 422" ?
                 "The email&password fields are required." :
                 "These credentials do not match our records."
             }
