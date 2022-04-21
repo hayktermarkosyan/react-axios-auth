@@ -16,3 +16,8 @@ export const logOut = async () => {
     localStorage.clear();
     return responce;
 };
+
+export const getList = async () => {
+    const responce = await client.get('products');
+    return responce;
+}

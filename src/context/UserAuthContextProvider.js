@@ -5,7 +5,9 @@ import * as users from '../api/user';
 const UserAuthContext = createContext();
 
 export const UserAuthContextProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const initialUser = JSON.parse(localStorage.getItem('user'))
+    const [user, setUser] = useState(initialUser);
+    const [list, setList] = useState();
     const [loginErr, setLoginErr] = useState();
     const [signupErr, setSignupErr] = useState();
     const navigate = useNavigate();
@@ -14,6 +16,7 @@ export const UserAuthContextProvider = ({ children }) => {
         users.logIn(data).then(
             () => {
                 setUser(data);
+                localStorage.setItem("user", JSON.stringify(data));
                 navigate("/home");
             }
         ).catch(err => setLoginErr(err.message));
@@ -33,8 +36,17 @@ export const UserAuthContextProvider = ({ children }) => {
         ).catch(err => console.log(err));   
     };
 
+    async function getList() {
+        users
+            .getList().then(res => setList(res.data))
+            .catch(err => console.log(err));
+        console.log("first")
+    }
+
     return (
-        <UserAuthContext.Provider value={{ user, loginErr, signupErr, logIn, signUp, logOut }}>
+        <UserAuthContext.Provider 
+            value={{ user, list, loginErr, signupErr, logIn, signUp, logOut, getList }}
+        >
             {children}
         </UserAuthContext.Provider>
     )

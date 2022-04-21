@@ -34,6 +34,12 @@ function App() {
                 path="/signup" 
                 element={user ? <Navigate to="/home" /> : <Signup />} 
               />
+
+              <Route 
+                exact
+                path="*" 
+                element={<Navigate to="/home" />} 
+              />
             </Routes>
         </Col>
       </Row>
