@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const client =  axios.create({
-    baseURL: "https://test-api.updivision.work/api/"
+    baseURL: process.env.REACT_APP_BASE_URL
 });
 
 client.interceptors.request.use(function (config) {
